@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:linked_lights/ui/common/ui_helpers.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:linked_lights/ui/widgets/custom_icons/lili_icon.dart';
 import 'package:stacked/stacked.dart';
 
@@ -21,29 +21,19 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               LiliIcon.linkedLightsIcon,
               size: 200,
-              color: Colors.red[800],
-            ),
+            )
+                .animate(
+                  onComplete: (controller) => controller.repeat(),
+                )
+                .rotate(
+                    duration: 6.seconds,
+                    curve: Curves.linear), // Makes it loop infinitely,
             const Text(
               'Linked Lights',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-            ),
-            const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                horizontalSpaceSmall,
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 3,
-                  ),
-                ),
-              ],
             ),
           ],
         ),
