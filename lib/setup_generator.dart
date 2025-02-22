@@ -217,12 +217,12 @@ void main() {
   int n = 5; // Example with 3 lights
   List<List<List<int>>> patterns = generateSolvablePatterns(n);
   List<Map<String, dynamic>> outputData = [];
-  print(
-      'Total number of solvable and non-redundant patterns for $n lights: ${patterns.length}');
+  // print(
+  //     'Total number of solvable and non-redundant patterns for $n lights: ${patterns.length}');
   for (var pattern in patterns) {
-    for (var row in pattern) {
-      print(row);
-    }
+    // for (var row in pattern) {
+    //   print(row);
+    // }
     int minTaps = minTapsToSolve(pattern);
     int uniqueStates = totalUniqueStates(pattern);
     double difficultyScore = minTaps / uniqueStates;
@@ -240,5 +240,5 @@ void main() {
   }
   File('patterns.json').writeAsStringSync(jsonEncode(outputData));
 
-  print('Data written to patterns.json');
+  // print('Data written to patterns.json');
 }

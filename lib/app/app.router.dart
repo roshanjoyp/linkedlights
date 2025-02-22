@@ -71,8 +71,13 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i5.GameView: (data) {
+      final args = data.getArgs<GameViewArguments>(nullOk: false);
       return _i6.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i5.GameView(),
+        builder: (context) => _i5.GameView(
+            numberOfLights: args.numberOfLights,
+            index: args.index,
+            value: args.value,
+            key: args.key),
         settings: data,
       );
     },
@@ -83,6 +88,45 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class GameViewArguments {
+  const GameViewArguments({
+    required this.numberOfLights,
+    required this.index,
+    required this.value,
+    this.key,
+  });
+
+  final int numberOfLights;
+
+  final int index;
+
+  final String value;
+
+  final _i6.Key? key;
+
+  @override
+  String toString() {
+    return '{"numberOfLights": "$numberOfLights", "index": "$index", "value": "$value", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant GameViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.numberOfLights == numberOfLights &&
+        other.index == index &&
+        other.value == value &&
+        other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return numberOfLights.hashCode ^
+        index.hashCode ^
+        value.hashCode ^
+        key.hashCode;
+  }
 }
 
 extension NavigatorStateExtension on _i7.NavigationService {
@@ -128,14 +172,23 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToGameView([
+  Future<dynamic> navigateToGameView({
+    required int numberOfLights,
+    required int index,
+    required String value,
+    _i6.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.gameView,
+        arguments: GameViewArguments(
+            numberOfLights: numberOfLights,
+            index: index,
+            value: value,
+            key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -184,14 +237,23 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithGameView([
+  Future<dynamic> replaceWithGameView({
+    required int numberOfLights,
+    required int index,
+    required String value,
+    _i6.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.gameView,
+        arguments: GameViewArguments(
+            numberOfLights: numberOfLights,
+            index: index,
+            value: value,
+            key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

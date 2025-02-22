@@ -36,7 +36,7 @@ class LevelView extends StackedView<LevelViewModel> {
                                 level: entry.key,
                                 patternIndex: index + 1,
                                 onTap: () => viewModel.onPatternSelected(
-                                    entry.key, index),
+                                    entry.key, index, entry.value[index][0]),
                               );
                             },
                             childCount: entry.value.length,
