@@ -4,13 +4,17 @@ import 'package:linked_lights/ui/views/home/home_view.dart';
 import 'package:linked_lights/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:linked_lights/ui/views/level/level_view.dart';
+import 'package:linked_lights/ui/views/game/game_view.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
-    // @stacked-route
+    MaterialRoute(page: LevelView),
+    MaterialRoute(page: GameView),
+// @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
