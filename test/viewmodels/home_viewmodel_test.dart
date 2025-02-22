@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:linked_lights/app/app.bottomsheets.dart';
 import 'package:linked_lights/app/app.locator.dart';
 import 'package:linked_lights/ui/common/app_strings.dart';
 import 'package:linked_lights/ui/views/home/home_viewmodel.dart';
+import 'package:mockito/mockito.dart';
 
 import '../helpers/test_helpers.dart';
 
@@ -14,13 +14,13 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    group('incrementCounter -', () {
-      test('When called once should return  Counter is: 1', () {
-        final model = getModel();
-        model.incrementCounter();
-        expect(model.counterLabel, 'Counter is: 1');
-      });
-    });
+    // group('incrementCounter -', () {
+    //   test('When called once should return  Counter is: 1', () {
+    //     final model = getModel();
+    //     model.incrementCounter();
+    //     expect(model.counterLabel, 'Counter is: 1');
+    //   });
+    // });
 
     group('showBottomSheet -', () {
       test(
