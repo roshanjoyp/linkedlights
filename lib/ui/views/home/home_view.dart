@@ -8,15 +8,32 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Center(
-                child: Text(
-              "Home",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
-            ))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.navigateToLevels();
+                    },
+                    child: const Text(
+                      "PLAY",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  const Text(
+                    "SETTINGS",
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }

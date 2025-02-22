@@ -38,6 +38,7 @@ flutter:
   uses-material-design: true
   assets:
   - assets/images/
+  - assets/levels.json
   fonts:
   - family: ArchitypeRenner
     fonts:
