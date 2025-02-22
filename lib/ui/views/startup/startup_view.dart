@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
 import 'package:linked_lights/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -20,7 +20,7 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'STACKED',
+              'Linked Lights',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
             Row(
@@ -33,7 +33,7 @@ class StartupView extends StackedView<StartupViewModel> {
                   height: 16,
                   child: CircularProgressIndicator(
                     color: Colors.black,
-                    strokeWidth: 6,
+                    strokeWidth: 3,
                   ),
                 ),
               ],
