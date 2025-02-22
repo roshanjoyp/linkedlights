@@ -40,12 +40,17 @@ class LevelView extends StackedView<LevelViewModel> {
                                     for (int i = 0;
                                         i < int.parse(entry.key);
                                         i++)
-                                      LightTile(
-                                        isOnLevelScreen: true,
-                                        index: i,
-                                        totalLights: int.parse(entry.key),
-                                        isOn: false,
-                                        onLightTapped: (i) {},
+                                      Expanded(
+                                        child: Hero(
+                                          tag: "${int.parse(entry.key)}_$i",
+                                          child: LightTile(
+                                            isOnLevelScreen: true,
+                                            index: i,
+                                            totalLights: int.parse(entry.key),
+                                            isOn: false,
+                                            onLightTapped: (i) {},
+                                          ),
+                                        ),
                                       ),
                                   ],
                                 ),

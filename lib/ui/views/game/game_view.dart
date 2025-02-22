@@ -77,11 +77,16 @@ class GameView extends StackedView<GameViewModel> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       for (int i = 0; i < viewModel.gameState.length; i++)
-                        LightTile(
-                          index: i,
-                          totalLights: viewModel.numberOfLights,
-                          isOn: viewModel.gameState[i],
-                          onLightTapped: viewModel.onLightTapped,
+                        Expanded(
+                          child: Hero(
+                            tag: "${viewModel.numberOfLights}_$i",
+                            child: LightTile(
+                              index: i,
+                              totalLights: viewModel.numberOfLights,
+                              isOn: viewModel.gameState[i],
+                              onLightTapped: viewModel.onLightTapped,
+                            ),
+                          ),
                         ),
                     ],
                   ),
