@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:linked_lights/ui/common/ui_helpers.dart';
+import 'package:linked_lights/ui/widgets/custom_icons/lili_icon.dart';
 import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
@@ -14,16 +15,22 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Linked Lights',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+            Icon(
+              LiliIcon.linkedLightsIcon,
+              size: 200,
+              color: Colors.red[800],
             ),
-            Row(
+            const Text(
+              'Linked Lights',
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+            ),
+            const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Loading ...', style: TextStyle(fontSize: 16)),
