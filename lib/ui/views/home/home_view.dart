@@ -12,7 +12,11 @@ class HomeView extends StackedView<HomeViewModel> {
       body: SafeArea(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("Home")),
+            child: Center(
+                child: Text(
+              "Home",
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+            ))),
       ),
     );
   }

@@ -21,6 +21,16 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData.dark().copyWith(
+        textTheme: Typography().white.apply(
+              fontFamily: 'ArchitypeRenner',
+            ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Colors.white,
+        ),
+      ),
+      theme: ThemeData(fontFamily: "ArchitypeRenner"),
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [StackedService.routeObserver],
     );
