@@ -1,11 +1,12 @@
 import 'package:linked_lights/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:linked_lights/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:linked_lights/ui/views/game/game_view.dart';
 import 'package:linked_lights/ui/views/home/home_view.dart';
+import 'package:linked_lights/ui/views/level/level_view.dart';
 import 'package:linked_lights/ui/views/startup/startup_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:linked_lights/ui/views/level/level_view.dart';
-import 'package:linked_lights/ui/views/game/game_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -13,7 +14,11 @@ import 'package:linked_lights/ui/views/game/game_view.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LevelView),
-    MaterialRoute(page: GameView),
+    //MaterialRoute(page: GameView),
+    CustomRoute(
+        page: GameView,
+        transitionsBuilder: TransitionsBuilders.slideRight,
+        durationInMilliseconds: 1000),
 // @stacked-route
   ],
   dependencies: [

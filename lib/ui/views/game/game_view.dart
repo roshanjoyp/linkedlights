@@ -79,6 +79,7 @@ class GameView extends StackedView<GameViewModel> {
                       for (int i = 0; i < viewModel.gameState.length; i++)
                         LightTile(
                           index: i,
+                          totalLights: viewModel.numberOfLights,
                           isOn: viewModel.gameState[i],
                           onLightTapped: viewModel.onLightTapped,
                         ),
@@ -106,10 +107,14 @@ class LightTile extends StatelessWidget {
     required this.index,
     required this.isOn,
     required this.onLightTapped,
+    required this.totalLights,
+    this.isOnLevelScreen = false,
   });
 
   final int index;
+  final int totalLights;
   final bool isOn;
+  final bool isOnLevelScreen;
   final Function(int) onLightTapped;
 
   @override
@@ -120,7 +125,7 @@ class LightTile extends StatelessWidget {
           onLightTapped(index);
         },
         child: RotatedBox(
-          quarterTurns: index % 4,
+          quarterTurns: (index + (isOnLevelScreen ? 1 : 0)) % 4,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: FittedBox(

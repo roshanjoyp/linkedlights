@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 class LevelViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   Map<String, List<List<String>>> levels = {};
+
   void runStartupLogic() async {
     try {
       levels = await ReadFile.readJsonFile("assets/levels.json");

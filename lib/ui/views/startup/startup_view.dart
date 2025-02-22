@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:linked_lights/ui/widgets/custom_icons/lili_icon.dart';
 import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
@@ -22,7 +21,7 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
-              LiliIcon.linkedLightsIcon,
+              Icons.play_arrow_outlined,
               size: 200,
             )
                 .animate(

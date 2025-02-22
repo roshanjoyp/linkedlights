@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   flutter_launcher_icons: ^0.14.3
+  flutter_sticky_header: ^0.7.0
   stacked: ^3.4.0
   stacked_services: ^1.1.0
 
@@ -50,6 +51,3 @@ flutter:
       weight: 500
     - asset: assets/fonts/ArchitypeRenner-Regular.otf
       weight: 400
-  - family: LiliIcon
-    fonts:
-    - asset: assets/icons/LiliIcon.ttf
