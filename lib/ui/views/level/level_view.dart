@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:linked_lights/ui/views/game/game_view.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,8 +24,8 @@ class LevelView extends StackedView<LevelViewModel> {
                 ...viewModel.levels.entries
                     .where((entry) => int.parse(entry.key) >= 1)
                     .expand((entry) => [
-                          SliverStickyHeader(
-                            header: Container(
+                          SliverToBoxAdapter(
+                            child: Container(
                               height: 200.0,
                               color: Colors.black,
                               padding: const EdgeInsets.symmetric(
@@ -56,30 +55,30 @@ class LevelView extends StackedView<LevelViewModel> {
                                 ),
                               ),
                             ),
-                            sliver: SliverGrid(
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: LevelBox(
-                                      level: entry.key,
-                                      patternIndex: index + 1,
-                                      onTap: () => viewModel.onPatternSelected(
-                                          entry.key,
-                                          index,
-                                          entry.value[index][0]),
-                                    ),
-                                  );
-                                },
-                                childCount: entry.value.length,
-                              ),
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 100, // Two patterns per row
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                                childAspectRatio: 1, // Square shape
-                              ),
+                          ),
+                          SliverGrid(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: LevelBox(
+                                    level: entry.key,
+                                    patternIndex: index + 1,
+                                    onTap: () => viewModel.onPatternSelected(
+                                        entry.key,
+                                        index,
+                                        entry.value[index][0]),
+                                  ),
+                                );
+                              },
+                              childCount: entry.value.length,
+                            ),
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 100, // Two patterns per row
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 1, // Square shape
                             ),
                           ),
                           const SliverToBoxAdapter(

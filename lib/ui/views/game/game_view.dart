@@ -88,7 +88,7 @@ class GameView extends StackedView<GameViewModel> {
                             ),
                           ),
                         ),
-                    ],
+                    ].reversed.toList(),
                   ),
                 ),
               ],
