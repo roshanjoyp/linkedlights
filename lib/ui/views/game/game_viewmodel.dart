@@ -16,7 +16,11 @@ class GameViewModel extends BaseViewModel {
   late final LevelData levelData;
   bool _tapEnabled = true;
 
+  int _currentTaps = 0;
+
   List<bool> gameState = [];
+
+  int get currentTaps => _currentTaps;
 
   GameViewModel({
     required this.levelId,
@@ -34,6 +38,7 @@ class GameViewModel extends BaseViewModel {
 
   void onLightTapped(int lightIndex) {
     int n = gameState.length;
+    _currentTaps++;
     for (int i = 0; i < n; i++) {
       // Check if the light is connected
       if (levelData.pattern[lightIndex * n + i] == '1') {
