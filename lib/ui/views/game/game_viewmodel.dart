@@ -1,34 +1,42 @@
+import 'dart:math';
+
 import 'package:linked_lights/app/app.dialogs.dart';
 import 'package:linked_lights/app/app.locator.dart';
+import 'package:linked_lights/models/level_data.dart';
+import 'package:linked_lights/services/level_data_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class GameViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
-  final int numberOfLights;
-  final int index;
-  final String value;
+  final _levelDataService = locator<LevelDataService>();
+
+  final int levelId;
+  late final int numberOfLights;
+  late final LevelData levelData;
+  bool _tapEnabled = true;
 
   List<bool> gameState = [];
 
   GameViewModel({
-    required this.numberOfLights,
-    required this.index,
-    required this.value,
+    required this.levelId,
   }) {
     init();
   }
 
+  bool get tapEnabled => _tapEnabled;
+
   void init() {
-    int n = numberOfLights;
-    gameState = List.filled(n, false);
+    levelData = _levelDataService.levels.firstWhere((e) => e.id == levelId);
+    numberOfLights = sqrt(levelData.pattern.length).toInt();
+    gameState = List.filled(numberOfLights, false);
   }
 
   void onLightTapped(int lightIndex) {
     int n = gameState.length;
     for (int i = 0; i < n; i++) {
       // Check if the light is connected
-      if (value[lightIndex * n + i] == '1') {
+      if (levelData.pattern[lightIndex * n + i] == '1') {
         gameState[i] = !gameState[i];
       }
     }
@@ -44,13 +52,18 @@ class GameViewModel extends BaseViewModel {
     );
   }
 
-  void checkIfWon() {
+  void checkIfWon() async {
     int n = gameState.length;
     for (int i = 0; i < n; i++) {
       if (gameState[i] == false) {
         return;
       }
     }
+    _tapEnabled = false;
+    rebuildUi();
+    await Future.delayed(const Duration(milliseconds: 500));
+    _tapEnabled = true;
+    rebuildUi();
     showDialog();
   }
 }

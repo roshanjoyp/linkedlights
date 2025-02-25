@@ -23,13 +23,18 @@ class HomeView extends StackedView<HomeViewModel> {
                     },
                     child: const Text(
                       "PLAY",
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: 80,
+                          letterSpacing: 4,
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   const Text(
                     "SETTINGS",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontSize: 80,
+                        letterSpacing: 4,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),

@@ -7,6 +7,8 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
 import 'package:flutter/material.dart' as _i4;
+import 'package:linked_lights/models/level_data.dart' as _i8;
+import 'package:linked_lights/services/level_data_service.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
@@ -682,4 +684,16 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [LevelDataService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLevelDataService extends _i1.Mock implements _i7.LevelDataService {
+  @override
+  List<_i8.LevelData> get levels => (super.noSuchMethod(
+        Invocation.getter(#levels),
+        returnValue: <_i8.LevelData>[],
+        returnValueForMissingStub: <_i8.LevelData>[],
+      ) as List<_i8.LevelData>);
 }

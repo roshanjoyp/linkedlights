@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:linked_lights/ui/views/game/game_view.dart';
+import 'package:linked_lights/ui/views/level/widgets/level_box.dart';
+import 'package:linked_lights/ui/views/level/widgets/light_tile_mini.dart';
 import 'package:stacked/stacked.dart';
 
 import 'level_viewmodel.dart';
@@ -14,80 +15,66 @@ class LevelView extends StackedView<LevelViewModel> {
     LevelViewModel viewModel,
     Widget? child,
   ) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: const Text("Select a Level")),
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator())
           : CustomScrollView(
               slivers: [
-                ...viewModel.levels.entries
-                    .where((entry) => int.parse(entry.key) >= 1)
-                    .expand((entry) => [
-                          SliverToBoxAdapter(
-                            child: Container(
-                              height: 200.0,
-                              color: Colors.black,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 16),
-                              margin: const EdgeInsets.only(bottom: 8),
-                              alignment: Alignment.centerLeft,
-                              child: Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    for (int i = 0;
-                                        i < int.parse(entry.key);
-                                        i++)
-                                      Expanded(
-                                        child: Hero(
-                                          tag: "${int.parse(entry.key)}_$i",
-                                          child: LightTile(
-                                            isOnLevelScreen: true,
-                                            index: i,
-                                            totalLights: int.parse(entry.key),
-                                            isOn: false,
-                                            onLightTapped: (i) {},
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: 100.0,
+                    width: size.width,
+                    //color: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (int i = 0; i < 5; i++)
+                          Expanded(
+                            child: Hero(
+                              tag: "_$i",
+                              child: LightTileMini(
+                                index: i,
                               ),
                             ),
                           ),
-                          SliverGrid(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: LevelBox(
-                                    level: entry.key,
-                                    patternIndex: index + 1,
-                                    onTap: () => viewModel.onPatternSelected(
-                                        entry.key,
-                                        index,
-                                        entry.value[index][0]),
-                                  ),
-                                );
-                              },
-                              childCount: entry.value.length,
-                            ),
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 100, // Two patterns per row
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              childAspectRatio: 1, // Square shape
-                            ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LevelBox(
+                          levelNumber: viewModel.levels[index].id,
+                          isLocked: false,
+                          stars: 0,
+                          onTap: () => viewModel.onPatternSelected(
+                            viewModel.levels[index].id,
                           ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 50,
-                            ),
-                          )
-                        ])
-                    .toList(),
+                        ),
+                      );
+                    },
+                    childCount: viewModel.levels.length,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 100, // Two patterns per row
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 1, // Square shape
+                  ),
+                )
               ],
             ),
     );
@@ -101,86 +88,5 @@ class LevelView extends StackedView<LevelViewModel> {
 
   @override
   void onViewModelReady(LevelViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
-}
-
-class LevelCard extends StatelessWidget {
-  final String level;
-  final int patternsCount;
-  final VoidCallback onTap;
-
-  const LevelCard({
-    required this.level,
-    required this.patternsCount,
-    required this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        title: Text("Level $level"),
-        subtitle: Text("$patternsCount pattern(s) available"),
-        onTap: onTap,
-      ),
-    );
-  }
-}
-
-/// Level Box for Level 3 and beyond (Grid Items)
-class LevelBox extends StatelessWidget {
-  final String level;
-  final int patternIndex;
-  final VoidCallback onTap;
-
-  const LevelBox({
-    required this.level,
-    required this.patternIndex,
-    required this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.red.withAlpha(50),
-                ),
-                child: Center(
-                  child: FittedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "$patternIndex",
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 40),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      .addPostFrameCallback((timeStamp) => viewModel.readLevelsData());
 }

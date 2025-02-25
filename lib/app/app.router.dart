@@ -73,11 +73,8 @@ class StackedRouter extends _i1.RouterBase {
     _i5.GameView: (data) {
       final args = data.getArgs<GameViewArguments>(nullOk: false);
       return _i6.MaterialPageRoute<dynamic>(
-        builder: (context) => _i5.GameView(
-            numberOfLights: args.numberOfLights,
-            index: args.index,
-            value: args.value,
-            key: args.key),
+        builder: (context) =>
+            _i5.GameView(levelId: args.levelId, key: args.key),
         settings: data,
       );
     },
@@ -92,40 +89,28 @@ class StackedRouter extends _i1.RouterBase {
 
 class GameViewArguments {
   const GameViewArguments({
-    required this.numberOfLights,
-    required this.index,
-    required this.value,
+    required this.levelId,
     this.key,
   });
 
-  final int numberOfLights;
-
-  final int index;
-
-  final String value;
+  final int levelId;
 
   final _i6.Key? key;
 
   @override
   String toString() {
-    return '{"numberOfLights": "$numberOfLights", "index": "$index", "value": "$value", "key": "$key"}';
+    return '{"levelId": "$levelId", "key": "$key"}';
   }
 
   @override
   bool operator ==(covariant GameViewArguments other) {
     if (identical(this, other)) return true;
-    return other.numberOfLights == numberOfLights &&
-        other.index == index &&
-        other.value == value &&
-        other.key == key;
+    return other.levelId == levelId && other.key == key;
   }
 
   @override
   int get hashCode {
-    return numberOfLights.hashCode ^
-        index.hashCode ^
-        value.hashCode ^
-        key.hashCode;
+    return levelId.hashCode ^ key.hashCode;
   }
 }
 
@@ -173,9 +158,7 @@ extension NavigatorStateExtension on _i7.NavigationService {
   }
 
   Future<dynamic> navigateToGameView({
-    required int numberOfLights,
-    required int index,
-    required String value,
+    required int levelId,
     _i6.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -184,11 +167,7 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.gameView,
-        arguments: GameViewArguments(
-            numberOfLights: numberOfLights,
-            index: index,
-            value: value,
-            key: key),
+        arguments: GameViewArguments(levelId: levelId, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -238,9 +217,7 @@ extension NavigatorStateExtension on _i7.NavigationService {
   }
 
   Future<dynamic> replaceWithGameView({
-    required int numberOfLights,
-    required int index,
-    required String value,
+    required int levelId,
     _i6.Key? key,
     int? routerId,
     bool preventDuplicates = true,
@@ -249,11 +226,7 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.gameView,
-        arguments: GameViewArguments(
-            numberOfLights: numberOfLights,
-            index: index,
-            value: value,
-            key: key),
+        arguments: GameViewArguments(levelId: levelId, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

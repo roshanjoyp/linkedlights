@@ -28,8 +28,9 @@ class StartupView extends StackedView<StartupViewModel> {
                   onComplete: (controller) => controller.repeat(),
                 )
                 .rotate(
-                    duration: 6.seconds,
-                    curve: Curves.linear), // Makes it loop infinitely,
+                  duration: 6.seconds,
+                  curve: Curves.linear,
+                ), // Makes it loop infinitely,
             const Text(
               'Linked Lights',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
