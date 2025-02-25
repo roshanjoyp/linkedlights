@@ -8,17 +8,15 @@ class LightTile extends StatelessWidget {
     super.key,
     required this.index,
     required this.isOn,
-    this.isOnLevelScreen = false,
   });
 
   final int index;
   final bool isOn;
-  final bool isOnLevelScreen;
 
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-      quarterTurns: (index + (isOnLevelScreen ? 1 : 0)) % 4,
+      quarterTurns: (index + 3) % 4,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FittedBox(

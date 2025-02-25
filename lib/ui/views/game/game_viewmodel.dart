@@ -66,4 +66,59 @@ class GameViewModel extends BaseViewModel {
     rebuildUi();
     showDialog();
   }
+
+  String getTag(int i) {
+    switch (numberOfLights) {
+      case 1:
+        {
+          return "_2";
+        }
+      case 2:
+        {
+          if (i == 0) {
+            return "_1";
+          } else {
+            return "_3";
+          }
+        }
+      case 3:
+        {
+          if (i == 0) {
+            return "_0";
+          } else if (i == 1) {
+            return "_2";
+          } else {
+            return "_4";
+          }
+        }
+      case 4:
+        {
+          if (i == 0) {
+            return "_0";
+          } else if (i == 1) {
+            return "_1";
+          } else if (i == 2) {
+            return "_3";
+          } else {
+            return "_4";
+          }
+        }
+      case 5:
+        {
+          if (i == 0) {
+            return "_0";
+          } else if (i == 1) {
+            return "_1";
+          } else if (i == 2) {
+            return "_2";
+          } else if (i == 3) {
+            return "_3";
+          } else {
+            return "_4";
+          }
+        }
+      default:
+        return "_1";
+    }
+  }
 }

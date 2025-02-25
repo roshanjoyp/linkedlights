@@ -41,7 +41,7 @@ class GameView extends StackedView<GameViewModel> {
                     }
                   },
                   child: Hero(
-                    tag: "${viewModel.numberOfLights}_$i",
+                    tag: viewModel.getTag(i),
                     child: LightTile(
                       index: i,
                       isOn: viewModel.gameState[i],

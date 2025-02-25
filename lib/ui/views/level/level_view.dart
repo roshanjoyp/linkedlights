@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:linked_lights/ui/views/level/widgets/level_box.dart';
@@ -23,33 +25,37 @@ class LevelView extends StackedView<LevelViewModel> {
           ? const Center(child: CircularProgressIndicator())
           : CustomScrollView(
               slivers: [
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: 100.0,
-                    width: size.width,
-                    //color: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 16,
-                    ),
-                    margin: const EdgeInsets.only(bottom: 8),
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          Expanded(
-                            child: Hero(
-                              tag: "_$i",
-                              child: LightTileMini(
-                                index: i,
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                      minHeight: 100,
+                      maxHeight: 100,
+                      child: Container(
+                        height: 100.0,
+                        width: size.width,
+                        color: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 16,
+                        ),
+                        margin: const EdgeInsets.only(bottom: 8),
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            for (int i = 0; i < 5; i++)
+                              Expanded(
+                                child: Hero(
+                                  tag: "_$i",
+                                  child: LightTileMini(
+                                    index: i,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
+                          ],
+                        ),
+                      )),
+                  pinned: true,
                 ),
                 SliverGrid(
                   delegate: SliverChildBuilderDelegate(
@@ -89,4 +95,33 @@ class LevelView extends StackedView<LevelViewModel> {
   @override
   void onViewModelReady(LevelViewModel viewModel) => SchedulerBinding.instance
       .addPostFrameCallback((timeStamp) => viewModel.readLevelsData());
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+  @override
+  double get maxExtent => max(maxHeight, minHeight);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
+  }
 }

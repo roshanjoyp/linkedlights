@@ -28,20 +28,40 @@ class LevelBox extends StatelessWidget {
               child: Container(
                 height: 100,
                 width: 100,
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.red.withAlpha(50),
+                  color: Colors.black,
                 ),
                 child: Center(
-                  child: FittedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "$levelNumber",
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 40),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: FittedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "$levelNumber",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            for (int i = 0; i < 3; i++)
+                              const Expanded(
+                                  child: Icon(Icons.star_border_outlined))
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
